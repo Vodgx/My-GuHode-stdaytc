@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติวิทยาลัย - วิทยาลัยเทคนิคยะลา</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Reset & Base (เหมือนหน้าแรกเพื่อความต่อเนื่อง) --- */
+        :root {
+            --primary-color: #8B0000; /* แดงเลือดหมู */
+            --secondary-color: #FFD700; /* ทอง */
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f4f6f9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Sarabun', sans-serif; line-height: 1.6; color: var(--text-dark); background-color: var(--bg-light); overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- Header (Copy มาเพื่อให้เหมือนหน้าแรก) --- */
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a:hover { color: var(--primary-color); font-weight: 600; }
+        .btn-register { background-color: var(--primary-color); color: #fff !important; padding: 8px 15px; border-radius: 5px; }
+
+        /* --- Hero Section แบบ Modern --- */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #2c0000);
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* ลูกเล่น Background Shape */
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--bg-light);
+            transform: skewY(-3deg);
+        }
+
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .page-header p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* --- Section: Vision & Mission (Cards) --- */
+        .vision-section { padding: 80px 0 60px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+        
+        .info-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.15);
+        }
+
+        .info-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); }
+
+        /* --- Interactive Timeline Section (Highlight) --- */
+        .history-section { padding: 60px 0 100px; position: relative; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2rem; color: var(--primary-color); }
+        
+        /* เส้นแกนกลาง Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0; /* ซ่อนก่อนเพื่อทำ Animation */
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        /* รายการฝั่งซ้าย */
+        .left { left: 0; text-align: right; }
+        /* รายการฝั่งขวา */
+        .right { left: 50%; }
+
+        /* จุดวงกลมบนเส้น */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #fff;
+            border: 4px solid var(--primary-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+
+        .right::after { left: -10px; }
+
+        /* กล่องเนื้อหาใน Timeline */
+        .content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .content:hover {
+            transform: scale(1.03);
+            background: #fffdf0; /* เปลี่ยนสีพื้นหลังเล็กน้อยเมื่อเอาเมาส์ชี้ */
+        }
+
+        .content h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 5px; }
+        .content h4 { font-weight: 600; margin-bottom: 10px; }
+
+        /* Mobile Responsive for Timeline */
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 21px; }
+            .left { text-align: left; }
+            .right { left: 0%; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+        }
+
+        /* Class สำหรับ JS Animation */
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:hover::after {
+            background-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer { background: #222; color: #fff; padding: 20px; text-align: center; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">วิทยาลัยเทคนิคยะลา</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="Page-about.html" style="color: var(--primary-color);">เกี่ยวกับเรา</a></li>
+                    <li><a href="#">หลักสูตร</a></li>
+                    <li><a href="#">ติดต่อเรา</a></li>
+                    <li><a href="#" class="btn-register">รับสมัครนักศึกษา</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>ประวัติความเป็นมา</h1>
+            <p>กว่า 80 ปี แห่งการสร้างคน สร้างงาน สร้างอาชีพ ชายแดนใต้</p>
+        </div>
+    </section>
+
+    <section class="vision-section">
+        <div class="container">
+            <div class="grid-2">
+                <div class="info-card">
+                    <h3>วิสัยทัศน์ (Vision)</h3>
+                    <p>"เป็นผู้นำด้านการจัดการอาชีวศึกษา ที่มุ่งเน้นนวัตกรรมและเทคโนโลยี เพื่อพัฒนาท้องถิ่นสู่มาตรฐานสากล"</p>
+                </div>
+                <div class="info-card">
+                    <h3>พันธกิจ (Mission)</h3>
+                    <ul>
+                        <li>✔ ผลิตกำลังคนอาชีวศึกษาให้มีคุณภาพตามมาตรฐาน</li>
+                        <li>✔ ส่งเสริมการวิจัยและนวัตกรรมสิ่งประดิษฐ์</li>
+                        <li>✔ บริการวิชาการและวิชาชีพสู่ชุมชน</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>เส้นทางสู่ความสำเร็จ</h2>
+                <p>ไทม์ไลน์เหตุการณ์สำคัญ (ลองเลื่อนลงและนำเมาส์ไปชี้ที่กล่องข้อความ)</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2>2481</h2>
+                        <h4>จุดเริ่มต้น</h4>
+                        <p>ก่อตั้งครั้งแรกในชื่อ "โรงเรียนช่างไม้ยะลา" มุ่งเน้นสอนทักษะงานไม้พื้นฐานให้แก่เยาวชนในท้องถิ่น</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2>2500</h2>
+                        <h4>การเปลี่ยนแปลง</h4>
+                        <p>เปลี่ยนชื่อเป็น "โรงเรียนการช่างยะลา" และเริ่มขยายหลักสูตรช่างอุตสาหกรรมเพิ่มเติม</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2>2522</h2>
+                        <h4>ยกฐานะ</h4>
+                        <p>ได้รับการยกฐานะขึ้นเป็น "วิทยาลัยเทคนิคยะลา" สังกัดกรมอาชีวศึกษา กระทรวงศึกษาธิการ</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2>2545</h2>
+                        <h4>ขยายโอกาส</h4>
+                        <p>เปิดสอนระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) และเริ่มนำเทคโนโลยีคอมพิวเตอร์เข้ามาใช้ในการจัดการเรียนการสอน</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2>ปัจจุบัน</h2>
+                        <h4>ศูนย์กลางอาชีวศึกษา</h4>
+                        <p>เป็นศูนย์กลางการเรียนรู้ด้านวิชาชีพที่ทันสมัยใน 3 จังหวัดชายแดนภาคใต้ พร้อมเครื่องมือมาตรฐานสากล</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Yala Technical College. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ใช้ Intersection Observer API ตรวจจับว่าผู้ใช้เลื่อนหน้าจอมาถึงหรือยัง
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // แสดงผลเมื่อ element โผล่มา 20%
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible'); // เพิ่ม class visible เพื่อเล่น animation
+                    // observer.unobserve(entry.target); // ลบ comment นี้ออกถ้าอยากให้เล่นครั้งเดียว
+                } else {
+                    entry.target.classList.remove('visible'); // เล่นซ้ำเมื่อเลื่อนกลับมา
+                }
+            });
+        }, observerOptions);
+
+        // เลือกทุก element ที่เป็น timeline-item
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+
+</body>
+</html>
